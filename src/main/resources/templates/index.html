@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Triangle</title>
+</head>
+<body>
+<h1>Form</h1>
+<form th:method="POST" th:action="@{/view/calculating}" th:object="${triangle}">
+    <label for="A">Side A: </label>
+    <input type="text" th:field="*{a}" id="A">
+    <div style="color:red" th:if="${#fields.hasErrors('A')}" th:error="*{a}">A Error - Side should bе positive</div>
+    <br/>
+    <label for="B">Side B: </label>
+    <input type="text" th:field="*{b}" id="B">
+    <div style="color:red" th:if="${#fields.hasErrors('B')}" th:error="*{b}">B Error - Side should bе positive</div>
+    <br/>
+    <label for="C">Side C: </label>
+    <input type="text" th:field="*{c}" id="C">
+    <div style="color:red" th:if="${#fields.hasErrors('C')}" th:error="*{c}">C Error - Side should bе positive</div>
+    <br/>
+    <p>
+        <input type="submit" value="Area" name="area"/>
+        <span th:text="${area}">1</span>
+        <input type="submit" value="Perimeter" name="perimeter"/>
+        <span th:text="${perimeter}">2</span>
+    </p>
+</form>
+
+
+
+</body>
+</html>
