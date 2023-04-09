@@ -15,33 +15,27 @@ public class ExceptionController {
 
     private final Logger logger = LoggerFactory.getLogger(TriangleController.class);
 
-    @ExceptionHandler({ ResponseStatusException.class })
-    public ResponseEntity<Object> handleException(ResponseStatusException ex)
-    {
-        var errorModel = new ErrorModel();
-        errorModel.Message = ex.getReason();
+    @ExceptionHandler({ResponseStatusException.class})
+    public ResponseEntity<Object> handleException(ResponseStatusException ex) {
+        var errorModel = new ErrorModel(ex.getReason());
 
         logger.error("Exception: " + ex.getMessage());
 
         return new ResponseEntity<>(errorModel, ex.getStatusCode());
     }
 
-    @ExceptionHandler({ RuntimeException.class })
-    public ResponseEntity<Object> handleExceptionSecond(RuntimeException ex)
-    {
-        var errorModel = new ErrorModel();
-        errorModel.Message = ex.getMessage();
+    @ExceptionHandler({RuntimeException.class})
+    public ResponseEntity<Object> handleExceptionSecond(RuntimeException ex) {
+        var errorModel = new ErrorModel(ex.getMessage());
 
         logger.error("Exception: " + ex.getMessage());
 
         return new ResponseEntity<>(errorModel, HttpStatusCode.valueOf(500));
     }
 
-    @ExceptionHandler({ BindException.class })
-    public ResponseEntity<Object> handleExceptionThird(BindException ex)
-    {
-        var errorModel = new ErrorModel();
-        errorModel.Message = ex.getMessage();
+    @ExceptionHandler({BindException.class})
+    public ResponseEntity<Object> handleExceptionThird(BindException ex) {
+        var errorModel = new ErrorModel(ex.getMessage());
 
         logger.error("Exception: " + ex.getMessage());
 

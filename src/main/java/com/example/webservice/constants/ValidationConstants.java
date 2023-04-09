@@ -1,7 +1,7 @@
 package com.example.webservice.constants;
 
 public class ValidationConstants {
-    public static final String ArgumentInvalidMessage = "Argument is invalid";
+    public static final String ARGUMENT_INVALID_MESSAGE = "Argument is invalid";
 
-    public static final String ServerErrorMessage = "Something wrong happened";
+    public static final String SERVER_ERROR_MESSAGE = "Something wrong happened";
 }
