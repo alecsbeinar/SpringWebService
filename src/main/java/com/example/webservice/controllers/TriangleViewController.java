@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
@@ -17,12 +20,12 @@ import org.springframework.web.bind.annotation.*;
 public class TriangleViewController {
 
     @Autowired
-    CalculatingOperation calculatingOperation;
+    private CalculatingOperation calculatingOperation;
     @Autowired
-    TriangleDAO triangleDAO;
+    private TriangleDAO triangleDAO;
 
     @GetMapping("/calculating")
-    public String newTriangle(Model model){
+    public String newTriangle(Model model) {
         Triangle triangle = new Triangle();
         triangleDAO.addTriangle(triangle);
         model.addAttribute("triangle", triangleDAO.getLastTriangle());
@@ -31,9 +34,10 @@ public class TriangleViewController {
 
     @RequestMapping(value = "/calculating", method = RequestMethod.POST, params = "area")
     public String getArea(Model model, @ModelAttribute("triangle") @Valid Triangle triangle,
-                          BindingResult bindingResult){
-        if(bindingResult.hasErrors())
+                          BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "index";
+        }
         triangleDAO.addTriangle(triangle);
         var entity = new TriangleEntity(triangle.getA(), triangle.getB(), triangle.getC());
         model.addAttribute("area", calculatingOperation.ComputeArea(entity));
@@ -42,9 +46,10 @@ public class TriangleViewController {
 
     @RequestMapping(value = "/calculating", method = RequestMethod.POST, params = "perimeter")
     public String getPerimeter(Model model, @ModelAttribute("triangle") @Valid Triangle triangle,
-                               BindingResult bindingResult){
-        if(bindingResult.hasErrors())
+                               BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "index";
+        }
         triangleDAO.addTriangle(triangle);
         var entity = new TriangleEntity(triangle.getA(), triangle.getB(), triangle.getC());
         model.addAttribute("area", calculatingOperation.ComputeArea(entity));
