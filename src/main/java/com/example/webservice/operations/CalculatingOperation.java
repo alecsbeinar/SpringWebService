@@ -3,12 +3,12 @@ package com.example.webservice.operations;
 import com.example.webservice.controllers.TriangleController;
 import com.example.webservice.entities.TriangleEntity;
 import com.example.webservice.interfaces.ICalculatingOperation;
-import com.example.webservice.interfaces.TriangleRepository;
 import com.example.webservice.repositories.DbContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.sql.*;
 import java.util.concurrent.CompletableFuture;
 
@@ -17,30 +17,27 @@ import java.util.concurrent.CompletableFuture;
 public class CalculatingOperation implements ICalculatingOperation {
 
     @Autowired
-    TriangleRepository triangleRepository;
+    private DbContext dbContext;
 
     Logger logger = LoggerFactory.getLogger(TriangleController.class);
 
-    @Autowired
-    DbContext dbContext;
-
     @Override
-    public double ComputeArea(TriangleEntity triangle) {
-        double sp = ComputePerimeter(triangle) / 2;
+    public double computeArea(TriangleEntity triangle) {
+        double sp = computePerimeter(triangle) / 2;
         return Math.sqrt(sp * (sp - triangle.A) * (sp - triangle.B) * (sp - triangle.C));
     }
 
     @Override
-    public double ComputePerimeter(TriangleEntity triangle) {
+    public double computePerimeter(TriangleEntity triangle) {
         return triangle.A + triangle.B + triangle.C;
     }
 
     @Override
-    public void ComputeAsync(TriangleEntity entity, Long id) {
+    public void computeAsync(TriangleEntity entity, Long id) {
         CompletableFuture.supplyAsync(() -> {
-            try{
-                var resultArea = ComputeArea(entity);
-                var resultPerimeter = ComputePerimeter(entity);
+            try {
+                var resultArea = computeArea(entity);
+                var resultPerimeter = computePerimeter(entity);
                 Thread.sleep(30000);
 
                 var sql = "INSERT INTO results (id, perimeter, area) VALUES(?, ?, ?)";
@@ -52,7 +49,7 @@ public class CalculatingOperation implements ICalculatingOperation {
 
                 logger.info("task completed");
                 return null;
-            } catch (InterruptedException | SQLException e){
+            } catch (InterruptedException | SQLException e) {
                 throw new RuntimeException(e);
             }
         });

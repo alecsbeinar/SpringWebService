@@ -1,6 +1,7 @@
 package com.example.webservice.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Collection;
 
 public class TriangleCollectionResultModel {

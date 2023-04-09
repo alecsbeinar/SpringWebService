@@ -1,10 +1,13 @@
 package com.example.webservice.models;
 
+import lombok.Data;
+
+@Data
 public class TriangleMemberStatistic {
-    public String name;
-    public double min;
-    public double middle;
-    public double max;
+    private String name;
+    private double min;
+    private double middle;
+    private double max;
 
     public TriangleMemberStatistic(String name, double min, double middle, double max) {
         this.name = name;

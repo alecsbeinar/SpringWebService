@@ -1,6 +1,5 @@
 package com.example.webservice.entities;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,5 +21,6 @@ public class TriangleDatabase {
         C = c;
     }
 
-    public TriangleDatabase(){}
+    public TriangleDatabase() {
+    }
 }

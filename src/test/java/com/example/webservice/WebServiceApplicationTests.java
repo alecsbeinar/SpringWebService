@@ -18,7 +18,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 class WebServiceApplicationTests {
 
     @Autowired
-    CalculatingOperation calculatingOperation;
+    private CalculatingOperation calculatingOperation;
 
     @Test
     void contextLoads() {
@@ -26,20 +26,20 @@ class WebServiceApplicationTests {
 
 
     @ParameterizedTest
-    @MethodSource("TriangleCompute")
-    void contextLoads(double a, double b, double c){
+    @MethodSource("triangleCompute")
+    void contextLoads(double a, double b, double c) {
         var entity = new TriangleEntity(a, b, c);
-        var area = calculatingOperation.ComputeArea(entity);
-        var perimeter = calculatingOperation.ComputePerimeter(entity);
+        var area = calculatingOperation.computeArea(entity);
+        var perimeter = calculatingOperation.computePerimeter(entity);
 
         double sp = perimeter / 2;
 
-        if(perimeter == a + b + c)
+        if (perimeter == a + b + c)
             Assertions.assertEquals(Math.sqrt(sp * (sp - a) * (sp - b) * (sp - c)), area);
 
     }
 
-    private static Stream<Arguments> TriangleCompute(){
+    private static Stream<Arguments> triangleCompute() {
         return Stream.of(
                 arguments(3, 4, 5),
                 arguments(5, 6, 7)

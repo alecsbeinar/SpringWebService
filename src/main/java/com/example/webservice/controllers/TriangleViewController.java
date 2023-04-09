@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.*;
 public class TriangleViewController {
 
     @Autowired
-    CalculatingOperation calculatingOperation;
+    private CalculatingOperation calculatingOperation;
     @Autowired
-    TriangleDAO triangleDAO;
+    private TriangleDAO triangleDAO;
 
     @GetMapping("/calculating")
-    public String newTriangle(Model model){
+    public String newTriangle(Model model) {
         Triangle triangle = new Triangle();
         triangleDAO.addTriangle(triangle);
         model.addAttribute("triangle", triangleDAO.getLastTriangle());
@@ -31,24 +31,24 @@ public class TriangleViewController {
 
     @RequestMapping(value = "/calculating", method = RequestMethod.POST, params = "area")
     public String getArea(Model model, @ModelAttribute("triangle") @Valid Triangle triangle,
-                          BindingResult bindingResult){
-        if(bindingResult.hasErrors())
+                          BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
             return "index";
         triangleDAO.addTriangle(triangle);
         var entity = new TriangleEntity(triangle.getA(), triangle.getB(), triangle.getC());
-        model.addAttribute("area", calculatingOperation.ComputeArea(entity));
+        model.addAttribute("area", calculatingOperation.computeArea(entity));
         return "index";
     }
 
     @RequestMapping(value = "/calculating", method = RequestMethod.POST, params = "perimeter")
     public String getPerimeter(Model model, @ModelAttribute("triangle") @Valid Triangle triangle,
-                               BindingResult bindingResult){
-        if(bindingResult.hasErrors())
+                               BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
             return "index";
         triangleDAO.addTriangle(triangle);
         var entity = new TriangleEntity(triangle.getA(), triangle.getB(), triangle.getC());
-        model.addAttribute("area", calculatingOperation.ComputeArea(entity));
-        model.addAttribute("perimeter", calculatingOperation.ComputePerimeter(entity));
+        model.addAttribute("area", calculatingOperation.computeArea(entity));
+        model.addAttribute("perimeter", calculatingOperation.computePerimeter(entity));
         return "index";
     }
 }

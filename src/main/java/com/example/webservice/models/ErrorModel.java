@@ -1,5 +1,9 @@
 package com.example.webservice.models;
 
 public class ErrorModel {
-    public String Message;
+    public String message;
+
+    public ErrorModel(String message) {
+        this.message = message;
+    }
 }

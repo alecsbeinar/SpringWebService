@@ -1,6 +1,7 @@
 package com.example.webservice.repositories;
 
 import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -8,13 +9,10 @@ import java.sql.DriverManager;
 public class DbContext {
     public Connection conn;
 
-    public DbContext()
-    {
-        try
-        {
+    public DbContext() {
+        try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/triangles", "Admin", "123");
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
     }

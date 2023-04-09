@@ -1,6 +1,5 @@
 package com.example.webservice.entities;
 
-
 public class TriangleEntity {
     public double A;
     public double B;
