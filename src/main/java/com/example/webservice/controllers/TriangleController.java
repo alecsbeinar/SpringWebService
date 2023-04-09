@@ -131,13 +131,4 @@ public class TriangleController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ValidationConstants.ArgumentInvalidMessage);
         }
     }
-
-    @ExceptionHandler({ResponseStatusException.class})
-    public ResponseEntity<Object> handleException(ResponseStatusException ex) {
-        var errorModel = new ErrorModel();
-        errorModel.Message = ex.getReason();
-        logger.info("Exception: " + ex.getMessage());
-        return new ResponseEntity<>(errorModel, ex.getStatusCode());
-    }
-
 }
